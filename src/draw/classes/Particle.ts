@@ -60,9 +60,14 @@ export default class Particle implements SimObject {
     public get position() {
         return this._position;
     }
+
+
+    set position(value: Vector) {
+        this._position = value;
+    }
 }
 
-function colorFromCharge(charge: number): FillStyle {
+export function colorFromCharge(charge: number): FillStyle {
     if (charge === 0) {
         return "black";
     }

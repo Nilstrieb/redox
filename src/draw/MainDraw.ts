@@ -1,9 +1,9 @@
 import {rect} from "./Shapes";
-import {drawParticles, initParticles, updateParticles} from "./Particles";
+import {changeMouseProperties, drawParticles, initParticles, updateParticles} from "./Particles";
 import {CANVAS_HEIGHT, CANVAS_WIDTH} from "../App";
 import {MouseEvent} from "react";
 import Vector from "./classes/Vector";
-import {drawUI, handleUIMouseMove, handleUIClick, initUI} from "./ui/UI";
+import {drawUI, handleUIClick, handleUIMouseMove, initUI} from "./ui/UI";
 
 type FillStyle = string | CanvasGradient | CanvasPattern;
 type Ctx = CanvasRenderingContext2D;
@@ -26,13 +26,12 @@ function update() {
 }
 
 function canvasMouseMove(e: MouseEvt) {
-    console.log(getMousePos(e))
+    changeMouseProperties(old => ({...old, pos: getMousePos(e)}));
     handleUIMouseMove(getMousePos(e));
 }
 
 function canvasClick(e: MouseEvt) {
-    console.log(getMousePos(e))
-    handleUIClick(e);
+    handleUIClick(getMousePos(e));
 }
 
 function getMousePos(evt: MouseEvt): Vector {
