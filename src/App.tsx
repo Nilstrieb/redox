@@ -1,26 +1,33 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, {useEffect, useRef} from 'react';
+import {draw, init, update} from "./draw/MainDraw";
+
+let CANVAS_WIDTH = 1500;
+let CANVAS_HEIGHT = 700;
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const canvasRef = useRef<HTMLCanvasElement>(null);
+
+    useEffect(() => {
+        const canvas = canvasRef.current;
+        if (!canvas) {
+            return;
+        }
+        const context = canvasRef.current!.getContext("2d")!;
+        init();
+        const interval = setInterval(() => {
+            update();
+        }, 1000 / 30);
+        draw(context);
+        return () => clearInterval(interval);
+    }, [canvasRef]);
+
+    return (
+        <div>
+            <h1>Redox</h1>
+            <canvas ref={canvasRef} height={CANVAS_HEIGHT} width={CANVAS_WIDTH}/>
+        </div>
+    );
 }
 
+export {CANVAS_WIDTH, CANVAS_HEIGHT};
 export default App;
