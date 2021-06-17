@@ -6,24 +6,26 @@ import {CANVAS_HEIGHT, CANVAS_WIDTH} from "../../App";
 
 const PARTICLE_SIZE = 5;
 const PARTICLE_EDGE_REPULSION_FORCE = 0.1;
-const FRICTION = 0.99;
-const RANDOM_ACCELERATION = 2;
+const FRICTION = -0.01;
+const RANDOM_ACCELERATION = 0.5;
 
 export default class Particle implements SimObject {
     private _position: Vector;
     private _velocity: Vector;
+    private _acceleration: Vector;
     private readonly _mass: number;
     private readonly _charge: number;
 
     constructor(position: Vector, charge = 0, mass = 1) {
         this._position = position;
         this._velocity = new Vector();
+        this._acceleration = new Vector();
         this._charge = charge;
         this._mass = mass;
     }
 
     public applyForce(force: Vector) {
-        this._velocity = this._velocity.add(force.scaleInverse(this._mass));
+        this._acceleration = this._acceleration.add(force);
     }
 
     public draw(ctx: Ctx): void {
@@ -31,11 +33,8 @@ export default class Particle implements SimObject {
     }
 
     public update(): void {
-        this._position = this._position.add(this._velocity);
-        this._velocity = this._velocity.scale(FRICTION);
-
         // random movement
-        if (this._velocity.magnitude() < 0.1 && Math.random() > 0.4) {
+        if (this._acceleration.magnitude() < 1 && this._velocity.magnitude() < 0.2 && Math.random() > 0.4) {
             this.applyForce(new Vector((Math.random() - 0.5) * RANDOM_ACCELERATION, (Math.random() - 0.5) * RANDOM_ACCELERATION));
         }
 
@@ -51,6 +50,14 @@ export default class Particle implements SimObject {
         if (this._position.y < 50) {
             this.applyForce(new Vector(0, PARTICLE_EDGE_REPULSION_FORCE));
         }
+
+        this._velocity = this._velocity
+            .add(this._acceleration
+                .add(new Vector(this._velocity.x * FRICTION, this._velocity.y * FRICTION))
+                .scaleInverse(this._mass));
+        this._position = this._position.add(this._velocity);
+        this._acceleration = new Vector();
+
     }
 
     public get charge() {

@@ -10,8 +10,8 @@ let mouseProperties: MouseProperties = {charge: 0, strength: 1, pos: new Vector(
 
 export function initParticles() {
     particles = [];
+    const chargeToMass = [1, 1, 100];
 
-    const chargeToMass = [0.1, 1, 10];
     for (let i = 0; i < 200; i++) {
         const charge = Math.random() < 0.3 ? 0 : Math.random() < 0.5 ? 1 : -1;
         particles.push(new Particle(new Vector(
@@ -57,8 +57,14 @@ function calculateChargedForces() {
                 const innerParticle = particles[j];
                 if (innerParticle.charge !== 0) {
                     const dist = particle.position.distance(innerParticle.position);
-                    if (dist < 300 && dist > 0.30) {
-                        const f1 = innerParticle.position.sub(particle.position).scale(0.5 / dist ** 2);
+                    if (dist < 300 && dist > 0) {
+                        const f1 = innerParticle.position.sub(particle.position).scale(0.5 / dist ** 2)
+                        /*
+                        that does not actually work because the world does not work like that
+                       but there is probably something missing here if the charges aren't equal
+                       .scale(Math.max(Math.abs(particle.charge), Math.abs(innerParticle.charge))
+                       / Math.min(Math.abs(particle.charge), Math.abs(innerParticle.charge)));
+                       */
                         if (particle.charge === innerParticle.charge) {
                             particle.applyForce(f1.negated());
                             innerParticle.applyForce(f1);

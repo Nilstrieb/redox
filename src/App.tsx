@@ -2,7 +2,7 @@ import React, {useEffect, useRef} from 'react';
 import {canvasClick, draw, init, update, canvasMouseMove} from "./draw/MainDraw";
 
 let CANVAS_WIDTH = 1500;
-let CANVAS_HEIGHT = 700;
+let CANVAS_HEIGHT = 900;
 
 function App() {
     const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -16,7 +16,7 @@ function App() {
         init();
         const interval = setInterval(() => {
             update();
-        }, 1000 / 30);
+        }, 1000 / 60);
         draw(context);
         return () => clearInterval(interval);
     }, [canvasRef]);
