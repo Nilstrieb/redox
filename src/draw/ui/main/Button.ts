@@ -1,6 +1,6 @@
-import {Ctx} from "../MainDraw";
-import Vector from "../classes/Vector";
-import {rect} from "../Shapes";
+import {Ctx} from "../../MainDraw";
+import Vector from "../../classes/Vector";
+import {rect} from "../../Shapes";
 import UIComponent from "./UIComponent";
 
 class Button extends UIComponent {

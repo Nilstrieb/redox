@@ -1,10 +1,17 @@
-import {Ctx} from "../MainDraw";
-import Vector from "../classes/Vector";
-import {CANVAS_WIDTH} from "../../App";
+import {Ctx} from "../../MainDraw";
+import Vector from "../../classes/Vector";
+import {CANVAS_WIDTH} from "../../../App";
 import UIComponent from "./UIComponent";
-import MouseChargeButton, {MouseChargeStrengthButton} from "./MouseChargeButton";
+import MouseChargeButton, {MouseChargeStrengthButton} from "../MouseChargeButton";
+import initToolbar from "../toolbar/Toolbar";
+import Particle from "../../classes/Particle";
+import {invokeDefaultLeftClickAction} from "../../Particles";
+
+export type LeftClickAction = (pos: Vector, particles: Particle[]) => Particle[];
+export const leftClickNoOp: LeftClickAction = (_, p) => p;
 
 const uiComponents: UIComponent[] = [];
+let defaultLeftClickAction: LeftClickAction = leftClickNoOp;
 
 export function initUI() {
     uiComponents.push(new MouseChargeButton(
@@ -15,6 +22,7 @@ export function initUI() {
         new Vector(CANVAS_WIDTH - 60, 70),
         new Vector(50, 50),
     ));
+    uiComponents.push(initToolbar());
 }
 
 export function handleUIMouseMove(coords: Vector) {
@@ -29,13 +37,19 @@ export function handleUIMouseMove(coords: Vector) {
     }
 }
 
+export function setDefaultLeftClickAction(action: LeftClickAction) {
+    defaultLeftClickAction = action;
+}
+
 export function handleUIClick(coords: Vector) {
     for (let component of uiComponents) {
         if (component.isInside(coords)) {
-            component.click();
-            break;
+            component.click(coords);
+            return;
         }
     }
+
+    invokeDefaultLeftClickAction(defaultLeftClickAction, coords);
 }
 
 export function drawUI(ctx: Ctx) {

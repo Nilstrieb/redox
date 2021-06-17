@@ -22,11 +22,8 @@ function App() {
     }, [canvasRef]);
 
     return (
-        <div>
-            <h1>Redox</h1>
-            <canvas onMouseMove={canvasMouseMove} onClick={canvasClick} ref={canvasRef} height={CANVAS_HEIGHT}
-                    width={CANVAS_WIDTH}/>
-        </div>
+        <canvas onMouseMove={canvasMouseMove} onClick={canvasClick} ref={canvasRef} height={CANVAS_HEIGHT}
+                width={CANVAS_WIDTH}/>
     );
 }
 

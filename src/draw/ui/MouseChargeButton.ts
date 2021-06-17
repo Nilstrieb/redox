@@ -1,4 +1,4 @@
-import Button from "./Button";
+import Button from "./main/Button";
 import Vector from "../classes/Vector";
 import {Ctx} from "../MainDraw";
 import {rect} from "../Shapes";

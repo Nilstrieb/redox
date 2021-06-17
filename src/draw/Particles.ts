@@ -3,6 +3,7 @@ import Particle, {colorFromCharge} from "./classes/Particle";
 import Vector from "./classes/Vector";
 import {CANVAS_HEIGHT, CANVAS_WIDTH} from "../App";
 import {circle} from "./Shapes";
+import {LeftClickAction} from "./ui/main/UI";
 
 let particles: Particle[] = [];
 let mouseProperties: MouseProperties = {charge: 0, strength: 1, pos: new Vector()};
@@ -24,6 +25,14 @@ interface MouseProperties {
     charge: number,
     strength: number,
     pos: Vector
+}
+
+export function getMousePosition(): Vector {
+    return mouseProperties.pos;
+}
+
+export function invokeDefaultLeftClickAction(action: LeftClickAction, mousePos: Vector) {
+    particles = action(mousePos, particles);
 }
 
 export function changeMouseProperties(transformer: (old: MouseProperties) => MouseProperties) {

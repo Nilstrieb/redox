@@ -3,7 +3,7 @@ import {changeMouseProperties, drawParticles, initParticles, updateParticles} fr
 import {CANVAS_HEIGHT, CANVAS_WIDTH} from "../App";
 import {MouseEvent} from "react";
 import Vector from "./classes/Vector";
-import {drawUI, handleUIClick, handleUIMouseMove, initUI} from "./ui/UI";
+import {drawUI, handleUIClick, handleUIMouseMove, initUI} from "./ui/main/UI";
 
 type FillStyle = string | CanvasGradient | CanvasPattern;
 type Ctx = CanvasRenderingContext2D;

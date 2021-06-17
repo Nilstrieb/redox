@@ -1,5 +1,5 @@
-import Button from "./Button";
+import Button from "./main/Button";
 
 export default class PauseButton extends Button {
-    
+
 }

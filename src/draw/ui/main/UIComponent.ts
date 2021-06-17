@@ -1,5 +1,5 @@
-import {Ctx} from "../MainDraw";
-import Vector from "../classes/Vector";
+import {Ctx} from "../../MainDraw";
+import Vector from "../../classes/Vector";
 
 export default abstract class UIComponent {
     protected _size: Vector;
@@ -17,7 +17,7 @@ export default abstract class UIComponent {
 
     abstract draw(ctx: Ctx): void;
 
-    abstract click(): void;
+    abstract click(mousePos: Vector): void;
 
     onHoverEnter(): void {
         this._isHovered = true;
@@ -33,6 +33,15 @@ export default abstract class UIComponent {
 
     set wasHovered(wasHovered) {
         this._wasHovered = wasHovered;
+    }
+
+
+    get size(): Vector {
+        return this._size;
+    }
+
+    get position(): Vector {
+        return this._position;
     }
 
     public isInside(coords: Vector): boolean {
