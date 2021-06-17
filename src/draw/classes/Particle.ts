@@ -1,5 +1,5 @@
 import Vector from "./Vector";
-import SimObject from "./Drawable";
+import SimObject from "./SimObject";
 import {Ctx, FillStyle} from "../MainDraw";
 import {circle} from "../Shapes";
 import {CANVAS_HEIGHT, CANVAS_WIDTH} from "../../App";
@@ -12,8 +12,8 @@ const RANDOM_ACCELERATION = 2;
 export default class Particle implements SimObject {
     private _position: Vector;
     private _velocity: Vector;
-    private _mass: number;
-    private _charge: number;
+    private readonly _mass: number;
+    private readonly _charge: number;
 
     constructor(position: Vector, charge = 0, mass = 1) {
         this._position = position;

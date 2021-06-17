@@ -1,5 +1,5 @@
 import React, {useEffect, useRef} from 'react';
-import {draw, init, update} from "./draw/MainDraw";
+import {canvasClick, draw, init, update, canvasMouseMove} from "./draw/MainDraw";
 
 let CANVAS_WIDTH = 1500;
 let CANVAS_HEIGHT = 700;
@@ -24,7 +24,8 @@ function App() {
     return (
         <div>
             <h1>Redox</h1>
-            <canvas ref={canvasRef} height={CANVAS_HEIGHT} width={CANVAS_WIDTH}/>
+            <canvas onMouseMove={canvasMouseMove} onClick={canvasClick} ref={canvasRef} height={CANVAS_HEIGHT}
+                    width={CANVAS_WIDTH}/>
         </div>
     );
 }

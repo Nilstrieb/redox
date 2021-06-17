@@ -5,15 +5,14 @@ import {CANVAS_HEIGHT, CANVAS_WIDTH} from "../App";
 
 const particles: Particle[] = [];
 
-
-export function particlesInit() {
+export function initParticles() {
     const chargeToMass = [0.1, 1, 10];
     for (let i = 0; i < 200; i++) {
         const charge = Math.random() < 0.3 ? 0 : Math.random() < 0.5 ? 1 : -1;
         particles.push(new Particle(new Vector(
             Math.random() * (CANVAS_WIDTH - 100) + 50,
             Math.random() * (CANVAS_HEIGHT - 100) + 50
-        ), charge, chargeToMass[charge - 1]));
+        ), charge, chargeToMass[charge + 1]));
     }
 }
 
