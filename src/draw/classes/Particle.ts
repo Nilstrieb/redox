@@ -12,18 +12,18 @@ const RANDOM_ACCELERATION = 2;
 export default class Particle implements SimObject {
     private _position: Vector;
     private _velocity: Vector;
-    // private _color: FillStyle;
+    private _mass: number;
     private _charge: number;
 
-    constructor(position: Vector, /*color = "black", */charge = 0) {
+    constructor(position: Vector, charge = 0, mass = 1) {
         this._position = position;
         this._velocity = new Vector();
-        //this._color = color;
         this._charge = charge;
+        this._mass = mass;
     }
 
     public applyForce(force: Vector) {
-        this._velocity = this._velocity.add(force);
+        this._velocity = this._velocity.add(force.scaleInverse(this._mass));
     }
 
     public draw(ctx: Ctx): void {

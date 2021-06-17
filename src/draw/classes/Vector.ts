@@ -11,15 +11,19 @@ export default class Vector {
         return new Vector(this.x + b.x, this.y + b.y);
     }
 
-    public sub(b: Vector) {
+    public sub(b: Vector): Vector {
         return new Vector(this.x - b.x, this.y - b.y);
     }
 
-    public scale(number: number) {
-        return new Vector(this.x * number, this.y * number);
+    public scale(n: number): Vector {
+        return new Vector(this.x * n, this.y * n);
     }
 
-    public magnitude() {
+    public scaleInverse(n: number): Vector {
+        return new Vector(this.x / n, this.y / n);
+    }
+
+    public magnitude(): number {
         return Math.sqrt(this.x * this.x + this.y * this.y);
     }
 
@@ -27,11 +31,11 @@ export default class Vector {
         return Math.sqrt((this.x - b.x) ** 2 + (this.y - b.y) ** 2)
     }
 
-    public negated() {
+    public negated(): Vector {
         return new Vector(-this.x, -this.y);
     }
 
-    public normalized() {
+    public normalized(): Vector {
         const factor = this.magnitude();
         return new Vector(this.x / factor, this.y / factor);
     }
