@@ -10,7 +10,7 @@ let mouseProperties: MouseProperties = {charge: 0, strength: 1, pos: new Vector(
 
 export function initParticles() {
     particles = [];
-    const chargeToMass = [1, 1, 100];
+    const chargeToMass = [1, 1, 1];
 
     for (let i = 0; i < 200; i++) {
         const charge = Math.random() < 0.3 ? 0 : Math.random() < 0.5 ? 1 : -1;

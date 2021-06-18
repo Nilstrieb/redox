@@ -15,15 +15,15 @@ export default abstract class UIComponent {
         this._isHovered = false;
     }
 
-    abstract draw(ctx: Ctx): void;
+    public abstract draw(ctx: Ctx): void;
 
-    abstract click(mousePos: Vector): void;
+    public abstract click(mousePos: Vector): void;
 
-    onHoverEnter(): void {
+    public onHoverEnter(): void {
         this._isHovered = true;
     }
 
-    onHoverLeave(): void {
+    public onHoverLeave(): void {
         this._isHovered = false;
     }
 
